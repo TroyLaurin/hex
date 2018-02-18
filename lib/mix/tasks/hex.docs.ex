@@ -66,6 +66,10 @@ defmodule Mix.Tasks.Hex.Docs do
     Mix.raise("You must specify at least the name of a package")
   end
 
+  defp fetch_docs(organization, _name_version) when not (organization in [nil, "hexpm"]) do
+    Mix.raise("Accessing docs for private packages is currently disabled")
+  end
+
   defp fetch_docs(organization, [name])
        when name in ["eex", "elixir", "ex_unit", "iex", "logger", "mix"] do
     fetch_docs(organization, [name, System.version()])
